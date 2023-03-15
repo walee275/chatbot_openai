@@ -47,7 +47,7 @@
             @include('partials.sidebar')
         </div>
         <div id="layoutSidenav_content">
-            <main id="main_tag">
+            <main id="main_tag" class="">
                 <div class="">
 
                     <div class="d-flex text-center flex-column flex-sm-column flex-md-row mt-5 px-5" id="cards"
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="section-form "
-                    style=" position: fixed; bottom: 0; width: 98%; background-color: rgb(67, 67, 71);">
+                    style=" position: fixed; bottom: 0; width: 100%; background-color: rgb(67, 67, 71);">
                     <div class="card " style="background-color: rgb(67, 67, 71);">
                         <div class="card-body">
                             <form id="form" style=" height:70px;">
@@ -263,12 +263,12 @@
 
                     if (sessionStorage.getItem('theme') == 1) {
                         responseElement.innerHTML +=
-                            ' <div class="bg-light px-4 mb-3 " id="jawab" style="white-space: pre-wrap; text-indent: 0;"></div> ';
-                            sessionStorage.setItem('response', '1')
+                            ' <div class="bg-light px-4 mb-3 " name="jawab" style="white-space: pre-wrap; text-indent: 0;"></div> ';
+                        sessionStorage.setItem('response', '1')
                     } else if (sessionStorage.getItem('theme') == 2) {
                         responseElement.innerHTML +=
-                            ' <div class="bg-secondary px-4 mb-3 " id="jawab" style="white-space: pre-wrap; text-indent: 0;"></div> ';
-                            sessionStorage.setItem('response', '1')
+                            ' <div class="bg-secondary px-4 mb-3 " name="jawab" style="white-space: pre-wrap; text-indent: 0;"></div> ';
+                        sessionStorage.setItem('response', '1')
                     }
 
                     var i = 0;
@@ -322,6 +322,7 @@
 
         // Theme Change Section
         const themeBtn = document.getElementById('theme_btn');
+
         themeBtn.addEventListener("click", function(e) {
             e.preventDefault()
             ThemeChange()
@@ -349,13 +350,17 @@
 
                 if (sessionStorage.getItem('response') == 1) {
                     console.log(sessionStorage.getItem('response'))
-                    responseElement.lastElementChild.classList.remove('bg-light')
+                    const jawabElement = document.getElementsByName('jawab');
+                    jawabElement.forEach(element => {
+                        element.classList.remove('bg-light')
 
-                    responseElement.lastElementChild.classList.add('bg-secondary')
+                        element.classList.add('bg-secondary')
+                    });
+
                     // sessionStorage.setItem('response', '0')
                 }
                 theme = 2;
-                themeBtn.innerText = 'Light Mode' ;
+                themeBtn.innerText = 'Light Mode';
                 // console.log(theme)
                 sessionStorage.setItem('theme', theme);
             } else if (theme == '2') {
@@ -363,22 +368,23 @@
                     element.classList.remove('bg-dark');
                     element.classList.add('bg-body');
                     element.classList.add('text-dark');
-                    element.classList.remove('text-white');
-
-
-
+                    element.classList.remove('text-white')
                 })
                 console.log(sessionStorage.getItem('response'))
 
                 if (sessionStorage.getItem('response') == 1) {
                     console.log(sessionStorage.getItem('response'))
-                    responseElement.lastElementChild.classList.remove('bg-secondary')
-                    responseElement.lastElementChild.classList.add('bg-light')
+                    const jawabElement = document.getElementsByName('jawab');
+                    jawabElement.forEach(element => {
+                        element.classList.remove('bg-secondary')
+                        element.classList.add('bg-light')
+                    })
+
                     // sessionStorage.setItem('response', '0')
                 }
                 theme = 1;
                 // console.log(theme)
-                themeBtn.innerHTML = 'Dark Mode' ;
+                themeBtn.innerHTML = 'Dark Mode';
                 sessionStorage.setItem('theme', theme);
             }
         }
